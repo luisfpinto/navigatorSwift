@@ -26,7 +26,16 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Loading stored user data
+        let defaults = UserDefaults.standard
+        red.value = defaults.float(forKey: "red")
+        green.value = defaults.float(forKey: "green")
+        blue.value = defaults.float(forKey: "blue")
+        rectangle.backgroundColor = UIColor(red: CGFloat(red.value), green: CGFloat(green.value), blue: CGFloat(blue.value), alpha: 1)
+        redNumber.text = String(round(red.value*255))
+        greenNumber.text = String(round(green.value*255))
+        blueNumber.text = String(round(blue.value*255))
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +52,13 @@ class ViewController: UIViewController {
         blueNumber.text = String(round(blue.value*255))
 //        view.backgroundColor = UIColor(displayP3Red: redValue, green: greenValue, blue: blueValue, alpha: 1)
         rectangle.backgroundColor = UIColor(red: redValue, green: greenValue, blue: blueValue, alpha: 1)
+        
+        // Saving user preferences
+        let defaults = UserDefaults.standard
+        defaults.set(red.value, forKey: "red")
+        defaults.set(blue.value, forKey: "green")
+        defaults.set(green.value, forKey: "blue")
+        defaults.synchronize()
     }
     
 }
